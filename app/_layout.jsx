@@ -33,7 +33,10 @@ const RootLayout = () => {
   }
   return (
     <Stack>
-      <Stack.Screen name='index' options={{headerShown:false}} />
+      <Stack.Screen name='index' options={{animation: 'none',headerShown:false}}  />
+      <Stack.Screen name='(auth)' options={{animation: 'none',headerShown:false}} />
+      <Stack.Screen name='(tabs)' options={{animation: 'none',headerShown:false}} />
+      {/* <Stack.Screen name='/search/[query]' options={{headerShown:false}} /> */}
     </Stack>
     
   )

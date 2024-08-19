@@ -6,7 +6,12 @@ import { StatusBar } from 'expo-status-bar'
 const AuthLayout = () => {
   return (
     <>
-      <Stack>
+      <Stack
+            screenOptions={{
+              headerShown: false,
+              animation: 'none', // This disables the default animation
+            }}
+      >
 
         <Stack.Screen 
           name="sign-in"
