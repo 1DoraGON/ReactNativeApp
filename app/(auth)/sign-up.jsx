@@ -6,6 +6,7 @@ import FormField from '../../components/FormField'
 import CustomButton from '../../components/CustomButton';
 import { Link } from 'expo-router'
 import { createUser } from "../../lib/appwrite"
+import CustomSwitch from '../../components/CustomSwitch'
 const SignUp = () => {
   const [form, setForm] = useState({
     email: "",
@@ -45,9 +46,9 @@ const SignUp = () => {
             placeholder="Password"
             otherStyles="mt-7"
           />
-
+          <CustomSwitch />
           <CustomButton 
-            title={"Sign In"}
+            title={"Sign Up"}
             handlePress={handleSubmit}
             isLoading={isSubmitting}
           />
