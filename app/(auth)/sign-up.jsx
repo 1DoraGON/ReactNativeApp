@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image } from 'react-native'
+import { View, Text, ScrollView, Image, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '../../constants'
@@ -7,16 +7,41 @@ import CustomButton from '../../components/CustomButton';
 import { Link } from 'expo-router'
 import { createUser } from "../../lib/appwrite"
 import CustomSwitch from '../../components/CustomSwitch'
+import { useGlobalContext } from '../../context/GlobalProvider'
 const SignUp = () => {
-  const [form, setForm] = useState({
-    email: "",
-    password: ""
-  })
-  const handleSubmit = () => {
-    createUser()
-  } 
+  const { setUser, setIsLoggedIn } = useGlobalContext();
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setSubmitting] = useState(false);
+  const [form, setForm] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const submit = async () => {
+    if (form.username === "" || form.email === "" || form.password === "") {
+      Alert.alert("Error", "Please fill in all fields");
+    }
+
+    setSubmitting(true);
+    try {
+      console.log(form.email);
+      
+      const result = await createUser(form.email, form.password, form.username);
+      setUser(result);
+      setIsLoggedIn(true);
+
+      router.replace("/home");
+    } catch (error) {
+      console.log(error);
+      
+      Alert.alert("Error", error.message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+
   return (
 
     <SafeAreaView className="bg-primary h-full">
@@ -26,8 +51,8 @@ const SignUp = () => {
           <Text className="text-2xl text-white text-semibold mt-10 font-psemibold">Sign Up to Aora</Text>
           <FormField 
             title="Username"
-            value={form.email}
-            handleChangeText={(e)=> {setForm({...form, email:e})}}
+            value={form.username}
+            handleChangeText={(e)=> {setForm({...form, username:e})}}
             otherStyles="mt-7"
             placeholder="Useername"
           />
@@ -42,14 +67,15 @@ const SignUp = () => {
           <FormField 
             title="Password"
             value={form.password}
-            handleChangeText={(e)=> {setForm({...form, password:e})}}
+            handleChangeText={(e)=> {console.log(form);
+             setForm({...form, password:e})}}
             placeholder="Password"
             otherStyles="mt-7"
           />
           <CustomSwitch />
           <CustomButton 
             title={"Sign Up"}
-            handlePress={handleSubmit}
+            handlePress={submit}
             isLoading={isSubmitting}
           />
           <View className="justify-center pt-5 flex-row gap-2">
