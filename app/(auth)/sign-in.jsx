@@ -30,12 +30,12 @@ const SignIn = () => {
       Alert.alert("Success", "User signed in successfully");
       router.replace("/home");
     } catch (error) {
-      setIsLoggedIn(true);
-      router.replace("/home");
+      // setIsLoggedIn(true);
+      // router.replace("/home");
       Alert.alert("Error", error.message);
     } finally {
-      setIsLoggedIn(true);
-      router.replace("/home");
+      // setIsLoggedIn(true);
+      // router.replace("/home");
       setIsSubmitting(false);
     }
   };
