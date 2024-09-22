@@ -3,7 +3,7 @@ import React from 'react';
 
 const CustomButton = ({ title, handlePress, containerStyles, textStyles, isLoading }) => {
   return (
-    <TouchableOpacity className="w-full mt-7"
+    <TouchableOpacity className={containerStyles}
       onPress={handlePress}
       activeOpacity={0.7}
       // style={containerStyles} // Apply width and marginTop here
