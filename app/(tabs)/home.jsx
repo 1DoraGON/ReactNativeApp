@@ -5,7 +5,7 @@ import { images } from '../../constants'
 import SearchInput from '../../components/SearchInput'
 import Trending from '../../components/Trending'
 import EmptyState from '../../components/EmptyState'
-import { getAllPosts } from '../../lib/appwrite'
+import { getAllPosts, getLatestPosts } from '../../lib/appwrite'
 import useAppwrite from '../../lib/useAppwrite'
 import VideoCard from '../../components/VideoCard'
 // import {SearchIn}
@@ -13,6 +13,7 @@ const Home = () => {
   const [refreshing, setRefreshing] = useState(false)
 
   const { data: posts, refetch } = useAppwrite(getAllPosts)
+  const { data: latestPosts } = useAppwrite(getLatestPosts)
   const onRefresh = async () => {
     setRefreshing(true)
     await refetch()
@@ -43,7 +44,7 @@ const Home = () => {
               <Text className='text-gray-100 text-lg font-pregular mb-3'>
                 Latest Videos
               </Text>
-              <Trending posts={[{id:1},{id:2}] ?? []}/>
+              <Trending posts={latestPosts ?? []}/>
             </View>
           </View>
         )}
