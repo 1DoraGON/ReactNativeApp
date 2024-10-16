@@ -22,6 +22,7 @@ const RootLayout = () => {
   });
 
   useEffect(() => {
+    
     if (error) throw error;
 
     if (fontsLoaded) {

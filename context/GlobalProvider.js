@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { getCurrentUser } from "../lib/appwrite";
 
 const GlobalContext = createContext();
+const getCurrentUser = async () => {}
 export const useGlobalContext = () => useContext(GlobalContext)
 
 export const GlobalProvider = ({ children }) => {
