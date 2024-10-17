@@ -18,6 +18,9 @@ export const AuthProvider = ({ children }) => {
       await AsyncStorage.setItem('access_token', tokens.access);
       await AsyncStorage.setItem('refresh_token', tokens.refresh);
       // Optionally, decode token to get user info
+      console.log('AsyncStorage.getAllKeys()');
+      console.log(AsyncStorage.getAllKeys());
+      
     } catch (error) {
       console.error('Login error', error);
       throw error;

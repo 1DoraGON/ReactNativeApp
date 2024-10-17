@@ -4,6 +4,7 @@ import { Slot, SplashScreen, Stack } from 'expo-router'
 
 import { useFonts } from "expo-font"
 import { GlobalProvider } from '../context/GlobalProvider'
+import { AuthProvider } from '../context/AuthContext'
 // Import your global CSS file
 // import "../global.css"
 
@@ -35,13 +36,14 @@ const RootLayout = () => {
   }
   return (
     <GlobalProvider>
-
+      <AuthProvider>
       <Stack>
-        <Stack.Screen name='index' options={{ animation: 'none', headerShown: false }} />
+        {/* <Stack.Screen name='index' options={{ animation: 'none', headerShown: false }} /> */}
         <Stack.Screen name='(auth)' options={{ animation: 'none', headerShown: false }} />
         <Stack.Screen name='(tabs)' options={{ animation: 'none', headerShown: false }} />
         {/* <Stack.Screen name='/search/[query]' options={{headerShown:false}} /> */}
       </Stack>
+      </AuthProvider>
     </GlobalProvider>
 
   )
