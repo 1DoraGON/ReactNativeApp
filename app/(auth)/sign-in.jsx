@@ -1,20 +1,26 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
+import { images } from "../../constants";
+
 import {
   SafeAreaView,
   View,
   Text,
   TouchableOpacity,
   TextInput,
+  Image,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import { AuthContext } from '../../context/AuthContext'; // Make sure to import your AuthContext
+import { Link, router } from 'expo-router';
 
 const SignIn = () => {
-  const { authTokens,setAuthTokens, login } = useContext(AuthContext); // Use the context to manage auth tokens
+  const { login } = useContext(AuthContext); // Use the context to manage auth tokens
   const [message, setMessage] = useState('');
-  console.log(authTokens)
+  // console.log(authTokens)
+  // setAuthTokens(null)
+  // console.log(authTokens)
   useEffect(() => {
     axios.get('http://192.168.171.61:8000/api/example/')
       .then(response => {
@@ -33,24 +39,29 @@ const SignIn = () => {
 
   const handleSignup = () => {
     // Check if passwords match
-    if (form.password !== form.password2) {
-      alert('Passwords do not match.');
-      return;
-    }
-    console.log('form');
+
     
     // Send signup request
-    login(email= form.email,password= form.password)
+    login(username= form.email,password= form.password)
+    router.replace('/conversation')
 
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-200">
+    <SafeAreaView className="flex-1 bg-gray-200 w-full h-full mt-5">
       <KeyboardAwareScrollView contentContainerClassName="py-6">
         <View className="px-6">
-          <View className="mb-6">
+          <View className="mb-6 w-full">
+            <View className="flex-row-reverse justify-between items-center ml-[-20px]">
+
+          <Image
+            source={images.logo}
+            className="w-[130px] h-[84px]"
+            resizeMode="contain"
+            />
             <View className="p-2 -ml-4">
               <FeatherIcon color="#1D2A32" name="chevron-left" size={30} />
+            </View>
             </View>
             <Text className="text-3xl font-bold text-gray-900 mb-2">
               Let's Get Started!
@@ -108,11 +119,12 @@ const SignIn = () => {
           </View>
         </View>
       </KeyboardAwareScrollView>
-
       <TouchableOpacity
         onPress={() => {
-          // handle link to sign in
+          router.replace('/sign-up')
+          
         }}>
+
         <Text className="py-6 text-center text-base font-semibold text-gray-900">
           Already have an account?{' '}
           <Text className="underline">Sign in</Text>
